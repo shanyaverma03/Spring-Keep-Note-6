@@ -13,55 +13,83 @@ public class Reminder {
 	 * be accepted from the user but should be always initialized with the system
 	 * date.
 	 */
-	
-	
-	  public String getReminderId() {
-	        return null;
-	    }
 
-	    public void setReminderId(String reminderId) {
-	       
-	    }
+	private String reminderId;
+	private String reminderName;
+	private String reminderDescription;
+	private String reminderType;
+	private String reminderCreatedBy;
+	private  Date reminderCreationDate;
 
-	    public String getReminderName() {
-	        return null;
-	    }
+	public Reminder(String reminderId, String reminderName, String reminderDescription, String reminderType, String reminderCreatedBy, Date reminderCreationDate) {
+		this.reminderId = reminderId;
+		this.reminderName = reminderName;
+		this.reminderDescription = reminderDescription;
+		this.reminderType = reminderType;
+		this.reminderCreatedBy = reminderCreatedBy;
+		this.reminderCreationDate = reminderCreationDate;
+	}
 
-	    public void setReminderName(String reminderName) {
-	       
-	    }
+	public Reminder() {
+	}
 
-	    public String getReminderDescription() {
-	        return null;
-	    }
+	@Override
+	public String toString() {
+		return "Reminder{" +
+				"reminderId='" + reminderId + '\'' +
+				", reminderName='" + reminderName + '\'' +
+				", reminderDescription='" + reminderDescription + '\'' +
+				", reminderType='" + reminderType + '\'' +
+				", reminderCreatedBy='" + reminderCreatedBy + '\'' +
+				", reminderCreationDate=" + reminderCreationDate +
+				'}';
+	}
 
-	    public void setReminderDescription(String reminderDescription) {
-	        
-	    }
+	public String getReminderId() {
+		return reminderId;
+	}
 
-	    public String getReminderType() {
-	        return null;
-	    }
+	public void setReminderId(String reminderId) {
+		this.reminderId = reminderId;
+	}
 
-	    public void setReminderType(String reminderType) {
-	       
-	    }
+	public String getReminderName() {
+		return reminderName;
+	}
 
-	    public String getReminderCreatedBy() {
-	        return null;
-	    }
+	public void setReminderName(String reminderName) {
+		this.reminderName = reminderName;
+	}
 
-	    public void setReminderCreatedBy(String reminderCreatedBy) {
-	        
-	    }
+	public String getReminderDescription() {
+		return reminderDescription;
+	}
 
-	    public Date getReminderCreationDate() {
-	        return null;
-	    }
+	public void setReminderDescription(String reminderDescription) {
+		this.reminderDescription = reminderDescription;
+	}
 
-	    public void setReminderCreationDate(Date reminderCreationDate) {
-	        
-	    }
+	public String getReminderType() {
+		return reminderType;
+	}
 
+	public void setReminderType(String reminderType) {
+		this.reminderType = reminderType;
+	}
 
+	public String getReminderCreatedBy() {
+		return reminderCreatedBy;
+	}
+
+	public void setReminderCreatedBy(String reminderCreatedBy) {
+		this.reminderCreatedBy = reminderCreatedBy;
+	}
+
+	public Date getReminderCreationDate() {
+		return reminderCreationDate;
+	}
+
+	public void setReminderCreationDate(Date reminderCreationDate) {
+		this.reminderCreationDate = reminderCreationDate;
+	}
 }

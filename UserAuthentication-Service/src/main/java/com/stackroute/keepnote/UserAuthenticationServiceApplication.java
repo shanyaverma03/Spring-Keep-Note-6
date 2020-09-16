@@ -22,10 +22,10 @@ public class UserAuthenticationServiceApplication {
      * and add addCorsMappings(CorsRegistry registry) method to set addMapping and allowedOrigins
 	 */
 	
-	@Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return null;
-    }
+//	@Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return null;
+//    }
 
 	/*
 	 * 

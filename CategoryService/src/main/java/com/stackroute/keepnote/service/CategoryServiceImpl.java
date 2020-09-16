@@ -1,11 +1,16 @@
 package com.stackroute.keepnote.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.stackroute.keepnote.exception.CategoryDoesNoteExistsException;
 import com.stackroute.keepnote.exception.CategoryNotCreatedException;
 import com.stackroute.keepnote.exception.CategoryNotFoundException;
 import com.stackroute.keepnote.model.Category;
+import com.stackroute.keepnote.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /*
 * Service classes are used here to implement additional business logic/validation 
@@ -16,7 +21,7 @@ import com.stackroute.keepnote.model.Category;
 * better. Additionally, tool support and additional behavior might rely on it in the 
 * future.
 * */
-
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	/*
@@ -25,13 +30,35 @@ public class CategoryServiceImpl implements CategoryService {
 	 * object using the new keyword.
 	 */
 
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	public CategoryServiceImpl(CategoryRepository categoryRepository) {
+		this.categoryRepository = categoryRepository;
+	}
+
 	/*
 	 * This method should be used to save a new category.Call the corresponding
 	 * method of Respository interface.
 	 */
 	public Category createCategory(Category category) throws CategoryNotCreatedException {
 
-		return null;
+		Category categoryCreated=null;
+		Optional<Category> optional =  categoryRepository.findById(category.getId());
+		if(optional.isPresent())
+		{
+			categoryCreated= null;
+			throw new CategoryNotCreatedException("User Already Exists");
+
+		}
+
+		categoryCreated=  categoryRepository.insert(category);
+		if(categoryCreated==null){
+			throw new CategoryNotCreatedException("Null");
+		}
+		return categoryCreated;
+
+
 	}
 
 	/*
@@ -40,7 +67,18 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public boolean deleteCategory(String categoryId) throws CategoryDoesNoteExistsException {
 
-		return false;
+		Optional<Category> optional= categoryRepository.findById(categoryId);
+		boolean ans=true;
+		if(!optional.isPresent()){
+			ans=false;
+			throw new CategoryDoesNoteExistsException("User does not exist");
+		}
+
+		categoryRepository.deleteById(categoryId);
+
+
+		return ans;
+
 	}
 
 	/*
@@ -49,7 +87,24 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public Category updateCategory(Category category, String categoryId) {
 
-		return null;
+		Optional<Category> optional= categoryRepository.findById(categoryId);
+		Category updatedCategory= optional.get();
+
+
+
+
+		if(updatedCategory!=null) {
+			updatedCategory.setId(category.getId());
+			updatedCategory.setCategoryName(category.getCategoryName());
+			updatedCategory.setCategoryCreatedBy(category.getCategoryCreatedBy());
+			updatedCategory.setCategoryDescription(category.getCategoryDescription());
+			categoryRepository.save(updatedCategory);
+			return updatedCategory;
+		}
+		else{
+
+			return  null;
+		}
 	}
 
 	/*
@@ -58,7 +113,16 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public Category getCategoryById(String categoryId) throws CategoryNotFoundException {
 
-		return null;
+		try {
+			Optional<Category> optional = categoryRepository.findById(categoryId);
+			Category category = optional.get();
+			return category;
+		}
+		catch (NoSuchElementException e){
+			throw new CategoryNotFoundException(("not found"));
+		}
+
+
 	}
 
 	/*
@@ -67,7 +131,10 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	public List<Category> getAllCategoryByUserId(String userId) {
 
-		return null;
+		List<Category> list= categoryRepository.findAllCategoryByCategoryCreatedBy(userId);
+
+
+		return list;
 	}
 
 }

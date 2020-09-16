@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xml>
+
 <configuration debug="true">
 	<property name="LOG_FILE_LOCATION" value="logs" />
 	<property name="LOG_FILE_NAME" value="KeepNote" />

@@ -15,3 +15,6 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
+
+
+#  MYSQL_HOST=localhost;MYSQL_DATABASE=authdb;MYSQL_USER=root;MYSQL_PASSWORD=root
